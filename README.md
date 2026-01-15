@@ -1,16 +1,194 @@
-# my_app
+# 📚 学習支援アプリ - AI搭載統合学習プラットフォーム
 
-A new Flutter project.
+[![Flutter](https://img.shields.io/badge/Flutter-3.0+-02569B?logo=flutter)](https://flutter.dev)
 
-## Getting Started
+> 全国情報教育コンテスト応募作品
 
-This project is a starting point for a Flutter application.
+## 🎯 プロジェクト概要
 
-A few resources to get you started if this is your first Flutter project:
+高校生・受験生向けの総合学習支援アプリケーションです。ポモドーロタイマー、学習記録、問題集管理、そしてAI問題生成機能を統合し、効率的な学習環境を提供します。
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### 主な特徴
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- ⏱️ **カスタマイズ可能なポモドーロタイマー** - 集中時間と休憩時間を自由に設定
+- 📊 **学習時間の可視化** - 日次・週次・月次の学習記録をグラフで表示
+- 🎯 **目標設定機能** - 1日の学習目標を設定し、達成を自動通知
+- 📝 **体系的な問題集** - 数学・英語・理科・社会の主要科目を網羅
+- 🤖 **AI類題生成** - カメラで問題を撮影し、GPT-4を使って類似問題を自動生成
+- 🔄 **復習管理システム** - 間違えた問題を自動追跡し、優先順位付けして復習を支援
+- 📋 **メモ機能** - 学習中の気づきを素早く記録
+
+## 🛠️ 技術スタック
+
+### フロントエンド
+- **Flutter 3.0+** - クロスプラットフォーム対応
+- **Dart** - 言語
+
+### 機能実装
+- **image_picker** - カメラ・ギャラリーからの画像取得
+- **http** - OpenAI API通信
+- **audioplayers** - 通知音再生
+
+### AI統合
+- **OpenAI GPT-4o API** - 問題認識と類題生成
+
+## 📱 主要機能
+
+### 1. ポモドーロタイマー
+```
+✅ プリセット設定（15分/25分/45分/90分）
+✅ カスタム時間設定（1-120分）
+✅ 作業/休憩の自動切り替え
+✅ 完了回数カウント
+✅ 通知音（作業完了・休憩完了）
+```
+
+### 2. 学習記録
+```
+✅ リアルタイム学習時間計測
+✅ 過去7日間のグラフ表示
+✅ 今日・今週・今月・累計の統計
+✅ 目標設定と達成通知
+✅ 進捗バー表示
+```
+
+### 3. AI問題分析
+```
+✅ カメラ撮影またはギャラリー選択
+✅ 問題文の自動認識
+✅ 詳細な解答生成
+✅ 3つの類似問題を自動作成
+✅ ステップバイステップの解説
+```
+
+### 4. 問題集
+```
+✅ 科目別階層構造（教科 > 分野 > 単元）
+✅ 数学：数I・II・III・A・B・C 完全対応
+✅ 英語・国語・理科・社会の主要単元
+✅ 正解/不正解の記録機能
+```
+
+### 5. 復習システム
+```
+✅ 間違えた問題を自動追跡
+✅ 誤答回数による優先順位付け
+✅ 学習統計表示（総問題数・正答率）
+✅ 復習必要問題の一覧表示
+```
+
+## 🚀 セットアップ方法
+
+### 必要要件
+- Flutter SDK 3.0以上
+- Dart SDK 2.17以上
+- Android Studio / Xcode（モバイル開発用）
+- OpenAI APIキー（AI機能使用時）
+
+### インストール手順
+
+1. **リポジトリのクローン**
+```bash
+git clone https://github.com/yourusername/study-support-app.git
+cd study-support-app
+```
+
+2. **依存パッケージのインストール**
+```bash
+flutter pub get
+```
+
+3. **OpenAI APIキーの設定**
+
+`lib/main.dart` ファイル内の以下の部分にAPIキーを入力：
+```dart
+const String OPENAI_API_KEY = 'your-api-key-here';
+```
+
+4. **アプリの実行**
+```bash
+flutter run
+```
+
+## 📖 使い方
+
+### ポモドーロタイマーの使用
+1. 画面下部の「ポモドーロ」タブを選択
+2. 右上の⚙️アイコンから時間設定
+3. 「開始」ボタンで学習開始
+4. 設定時間経過後、自動的に休憩時間に移行
+
+### AI問題生成の使用
+1. 画面下部の「AI」タブを選択
+2. 「カメラを起動」をタップ
+3. 問題を撮影またはギャラリーから選択
+4. AIが問題を解析し、解答と類題を生成（30秒〜1分）
+5. 生成された類題で練習
+
+### 復習機能の使用
+1. 問題集で問題を解く
+2. 「正解」または「不正解」ボタンで結果を記録
+3. 「復習」タブで間違えた問題を確認
+4. 間違い回数の多い順に表示される
+
+## 📊 データ構造
+
+### 問題データ形式
+```dart
+Map<String, List<Map<String, String>>> {
+  '科目_分野_単元': [
+    {
+      'title': '問題タイトル',
+      'problem': '問題文',
+      'answer': '解答',
+      'explanation': '解説',
+    }
+  ]
+}
+```
+
+### 学習記録
+```dart
+class StudySession {
+  final DateTime dateTime;
+  final int minutes;
+}
+```
+
+### 問題解答記録
+```dart
+class ProblemAttempt {
+  final String problemId;
+  final String subject;
+  final bool isCorrect;
+  final DateTime attemptDate;
+}
+```
+
+## 🎨 UI/UX設計の工夫
+
+- **直感的なボトムナビゲーション** - 6つの主要機能に素早くアクセス
+- **カラーコーディング** - 機能ごとに色分けして視認性向上
+- **プログレスバー** - 目標達成度を視覚的に表示
+- **レスポンシブデザイン** - 様々な画面サイズに対応
+- **エラーハンドリング** - APIキー未設定時の詳細なガイド表示
+
+## 🔐 セキュリティ
+
+⚠️ **重要**: 本番環境では以下の対策を実施してください
+
+- APIキーはソースコードに直接記載せず、環境変数を使用
+- `.gitignore` にAPIキーファイルを追加
+- ユーザーデータの暗号化
+- セキュアストレージの使用
+
+
+## 🙏 謝辞
+
+- OpenAI GPT-4 APIの活用
+- Flutter/Dartコミュニティのサポート
+- 全国情報教育コンテストへの応募機会
+
+---
+
+**最終更新**: 2026年1月15日
